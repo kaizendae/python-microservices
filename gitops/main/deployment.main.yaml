@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: main
+  labels:
+    app: main
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: main
+  template:
+    metadata:
+      labels:
+        app: main
+    spec:
+      containers:
+      - name: main
+        image: random9deploy/ms-main:1.0
+        command:
+          - sh
+          - -c
+          - |
+            python manager.py db_init; 
+            python manager.py db_migrate;
+            python main.py
+        ports:
+        - containerPort: 5000
+        env:
+        - name: RABBITMQ_URL
+          value: amqps://omzxrsxb:KfqhZsJnf3XDVdjM_9MM5m4hW2BtKA_U@cow.rmq2.cloudamqp.com/omzxrsxb
+        envFrom:
+        - secretRef:
+            name: backend-config
+      - name: main-queue
+        image: random9deploy/ms-main:1.0
+        command: ["python", "-u", "consumer.py"]
+        env:
+        - name: DATABASE_URI
+          valueFrom:
+            secretKeyRef:
+              name: backend-config
+              key: DATABASE_URI
+        - name: RABBITMQ_URL
+          value: amqps://omzxrsxb:KfqhZsJnf3XDVdjM_9MM5m4hW2BtKA_U@cow.rmq2.cloudamqp.com/omzxrsxb
