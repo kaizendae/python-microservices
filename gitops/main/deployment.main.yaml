@@ -34,7 +34,7 @@ spec:
         - secretRef:
             name: backend-config
       - name: main-queue
-        image: random9deploy/ms-main:1.2
+        image: random9deploy/ms-main:1.3
         command: ["python", "-u", "consumer.py"]
         env:
         - name: DATABASE_URI
