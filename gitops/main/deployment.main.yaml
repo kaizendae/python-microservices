@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: main
-        image: random9deploy/ms-main:1.1
+        image: random9deploy/ms-main:1.2
         command:
           - sh
           - -c
@@ -34,7 +34,7 @@ spec:
         - secretRef:
             name: backend-config
       - name: main-queue
-        image: random9deploy/ms-main:1.1
+        image: random9deploy/ms-main:1.2
         command: ["python", "-u", "consumer.py"]
         env:
         - name: DATABASE_URI
