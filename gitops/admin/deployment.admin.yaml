@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: admin
-          image: random9deploy/ms-admin:1.0
+          image: random9deploy/ms-admin:1.1
           command:
             - sh
             - -c

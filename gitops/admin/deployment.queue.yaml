@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: admin-queue
-          image: random9deploy/ms-admin:1.0
+          image: random9deploy/ms-admin:1.1
           env:
             - name: RABBITMQ_URL
               value: amqps://omzxrsxb:KfqhZsJnf3XDVdjM_9MM5m4hW2BtKA_U@cow.rmq2.cloudamqp.com/omzxrsxb
